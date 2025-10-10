@@ -45,7 +45,7 @@ void RCC_Config_168MHZ(void){
 	RCC->CFGR = 0;
 	RCC->CFGR &= ~(1 << 7);								// HCLK to AHB div 1
 	RCC->CFGR &= ~(0b111111 << 10);
-	RCC->CFGR |= (0b101 << 10);								// APB1 div 4
+	RCC->CFGR |= (0b101 << 10);						// APB1 div 4
 	RCC->CFGR |= (1 << 15);								// APB2 div 2
 	
 	RCC->CFGR &= ~(0b11 << 0);
