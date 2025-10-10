@@ -45,8 +45,11 @@ typedef struct{
 
 #define RCC_ADDRESS_BASE						0x40023800UL
 #define RCC													((volatile RCC_Typedef*)RCC_ADDRESS_BASE)
+#define FLASH_ITF_BASE							0x40023C00UL
+#define ACR													(*(volatile __REG*)FLASH_ITF_BASE)
 	
-
+void RCC_Config_Default(void);			//Setup HCLK to 72MHz
+void RCC_Config_168MHZ(void);				//Setup HCLK to 168MHz
 
 
 #endif
