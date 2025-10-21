@@ -50,6 +50,13 @@ typedef struct{
 	
 void RCC_Config_Default(void);			//Setup HCLK to 72MHz
 void RCC_Config_168MHZ(void);				//Setup HCLK to 168MHz
-
-
+void RCC_Enable_GPIOA(void);
+void RCC_Enable_GPIOB(void);
+void RCC_Enable_GPIOC(void);
+void RCC_Enable_GPIOD(void);
+void RCC_Enable_GPIOE(void);
+void RCC_Enable_GPIOF(void);
+void RCC_Enable_GPIOG(void);
+void RCC_Enable_GPIOH(void);
+void RCC_Enable_SYSCFG(void);
 #endif

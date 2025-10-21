@@ -52,3 +52,16 @@ void RCC_Config_168MHZ(void){
 	RCC->CFGR |= (1 << 1);
 	while((RCC->CFGR & 0b1100) != 0b1000);
 }
+
+void RCC_Enable_GPIOA(void){
+	RCC->AHB1ENR |= (1 << 0);
+}
+void RCC_Enable_GPIOB(void){
+	RCC->AHB1ENR |= (1 << 1);
+}
+void RCC_Enable_GPIOC(void){
+	RCC->AHB1ENR |= (1 << 2);
+}
+void RCC_Enable_SYSCFG(void){
+	RCC->APB2ENR |= (1 << 14);
+}

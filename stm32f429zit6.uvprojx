@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>F429ZI_Reg</TargetName>
+      <TargetName>Project</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>6230000::V6.23::ARMCLANG</pCCUsed>
@@ -16,14 +16,14 @@
         <TargetCommonOption>
           <Device>STM32F429ZITx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.3.1.1</PackID>
+          <PackID>Keil.STM32F4xx_DFP.2.17.1</PackID>
           <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00030000) IRAM2(0x10000000,0x00010000) IROM(0x08000000,0x00200000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
           <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_2048 -FS08000000 -FL0200000 -FP0($$Device:STM32F429ZITx$CMSIS\Flash\STM32F4xx_2048.FLM))</FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile></RegisterFile>
+          <RegisterFile>$$Device:STM32F429ZITx$Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>F429ZI_Reg</OutputName>
+          <OutputName>stm32f429zit6</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -358,7 +358,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Startup</IncludePath>
+              <IncludePath></IncludePath>
             </VariousControls>
           </Aads>
           <LDads>
@@ -395,21 +395,6 @@
           <GroupName>Driver</GroupName>
           <Files>
             <File>
-              <FileName>RCC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Driver\RCC.c</FilePath>
-            </File>
-            <File>
-              <FileName>RCC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Driver\RCC.h</FilePath>
-            </File>
-            <File>
-              <FileName>TYPE.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Driver\TYPE.h</FilePath>
-            </File>
-            <File>
               <FileName>GPIO.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Driver\GPIO.c</FilePath>
@@ -418,6 +403,16 @@
               <FileName>GPIO.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Driver\GPIO.h</FilePath>
+            </File>
+            <File>
+              <FileName>RCC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Driver\RCC.c</FilePath>
+            </File>
+            <File>
+              <FileName>RCC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Driver\RCC.h</FilePath>
             </File>
             <File>
               <FileName>TIM.c</FileName>
@@ -429,20 +424,38 @@
               <FileType>5</FileType>
               <FilePath>.\Driver\TIM.h</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Startup</GroupName>
-          <Files>
             <File>
-              <FileName>startup_stm32f429xx.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Startup\startup_stm32f429xx.s</FilePath>
+              <FileName>TYPE.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Driver\TYPE.h</FilePath>
+            </File>
+            <File>
+              <FileName>EXTI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Driver\EXTI.c</FilePath>
+            </File>
+            <File>
+              <FileName>EXTI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Driver\EXTI.h</FilePath>
+            </File>
+            <File>
+              <FileName>ISER.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Driver\ISER.h</FilePath>
+            </File>
+            <File>
+              <FileName>SYSCFG.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Driver\SYSCFG.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::Device</GroupName>
         </Group>
       </Groups>
     </Target>
@@ -454,17 +467,40 @@
       <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="6.1.1" condition="ARMv6_7_8-M Device">
         <package name="CMSIS" schemaVersion="1.7.40" url="https://www.keil.com/pack/" vendor="ARM" version="6.2.0"/>
         <targetInfos>
-          <targetInfo name="F429ZI_Reg"/>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS">
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.1"/>
+        <targetInfos>
+          <targetInfo name="Project"/>
         </targetInfos>
       </component>
     </components>
-    <files/>
+    <files>
+      <file attr="config" category="source" condition="STM32F429xx_ARMCC" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f429xx.s" version="2.6.8">
+        <instance index="0">RTE\Device\STM32F429ZITx\startup_stm32f429xx.s</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.1"/>
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c" version="2.6.8">
+        <instance index="0">RTE\Device\STM32F429ZITx\system_stm32f4xx.c</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
+        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="https://www.keil.com/pack/" vendor="Keil" version="2.17.1"/>
+        <targetInfos>
+          <targetInfo name="Project"/>
+        </targetInfos>
+      </file>
+    </files>
   </RTE>
 
   <LayerInfo>
     <Layers>
       <Layer>
-        <LayName>F429ZI_Reg</LayName>
+        <LayName>stm32f429zit6</LayName>
         <LayPrjMark>1</LayPrjMark>
       </Layer>
     </Layers>

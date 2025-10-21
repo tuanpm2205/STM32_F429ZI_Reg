@@ -60,9 +60,9 @@ typedef struct {
 #define GPIOG													((volatile GPIO_Typedef*)GPIOG_ADDRESS_BASE)
 #define GPIOH													((volatile GPIO_Typedef*)GPIOH_ADDRESS_BASE)
 
-void GPIO_Config(GPIO_Typedef *GPIOx, uint16_t GPIO_Pin, uint8_t Mode);
-void GPIO_Write_Pin(GPIO_Typedef *GPIOx, uint16_t GPIO_Pin, uint8_t State);
-uint8_t GPIO_Read_Pin(GPIO_Typedef *GPIOx, uint16_t GPIO_Pin);
-void GPIO_Toggle_Pin(GPIO_Typedef *GPIOx, uint16_t GPIO_Pin);
+void GPIO_Config(volatile GPIO_Typedef *GPIOx, uint16_t GPIO_Pin, uint8_t Mode);
+void GPIO_Write_Pin(volatile GPIO_Typedef *GPIOx, uint16_t GPIO_Pin, uint8_t State);
+uint8_t GPIO_Read_Pin(volatile GPIO_Typedef *GPIOx, uint16_t GPIO_Pin);
+void GPIO_Toggle_Pin(volatile GPIO_Typedef *GPIOx, uint16_t GPIO_Pin);
 
 #endif

@@ -1,11 +1,11 @@
 #include "GPIO.h"
 
-void GPIO_Config(GPIO_Typedef *GPIOx, uint16_t GPIO_Pin, uint8_t Mode){
+void GPIO_Config(volatile GPIO_Typedef *GPIOx, uint16_t GPIO_Pin, uint8_t Mode){
 
-	uint8_t Moder = 0;
-	uint8_t Otyper = 0;
-	uint8_t Ospeedr = 0;   // Default: Max speed
-	uint8_t Pupdr = 0; 
+	uint32_t Moder = 0;
+	uint32_t Otyper = 0;
+	uint32_t Ospeedr = 0;   // Default: Max speed
+	uint32_t Pupdr = 0; 
 
 	switch(Mode){
 		case MODE_OPP:
@@ -51,10 +51,10 @@ void GPIO_Config(GPIO_Typedef *GPIOx, uint16_t GPIO_Pin, uint8_t Mode){
 
 	for(uint8_t i = 0; i < 16; i++){
 		if(((1 << i) & GPIO_Pin)){
-			GPIOx->MODER &= ~(0b11 << (i*2));
-			GPIOx->OTYPER &= ~(0b1 << i);
-			GPIOx->OSPEEDR &= ~(0b11 << (i*2));
-			GPIOx->PUPDR &= ~(0b11 << (i*2));
+			GPIOx->MODER &= ~((uint32_t)0b11 << (i*2));
+			GPIOx->OTYPER &= ~((uint32_t)0b1 << i);
+			GPIOx->OSPEEDR &= ~((uint32_t)0b11 << (i*2));
+			GPIOx->PUPDR &= ~((uint32_t)0b11 << (i*2));
 			
 			GPIOx->MODER |= (Moder << (i*2));
 			GPIOx->OTYPER |= (Otyper << i);
@@ -64,7 +64,7 @@ void GPIO_Config(GPIO_Typedef *GPIOx, uint16_t GPIO_Pin, uint8_t Mode){
 	}
 }
 
-void GPIO_Write_Pin(GPIO_Typedef *GPIOx, uint16_t GPIO_Pin, uint8_t State){
+void GPIO_Write_Pin(volatile GPIO_Typedef *GPIOx, uint16_t GPIO_Pin, uint8_t State){
 	if(State){
 		GPIOx->BSRR = GPIO_Pin;
 	}else{
@@ -72,7 +72,7 @@ void GPIO_Write_Pin(GPIO_Typedef *GPIOx, uint16_t GPIO_Pin, uint8_t State){
 	}
 }
 
-uint8_t GPIO_Read_Pin(GPIO_Typedef *GPIOx, uint16_t GPIO_Pin){
+uint8_t GPIO_Read_Pin(volatile GPIO_Typedef *GPIOx, uint16_t GPIO_Pin){
 	if((GPIOx->IDR & (uint32_t)GPIO_Pin) != 0){
 		return 1;
 	}else{
@@ -80,7 +80,7 @@ uint8_t GPIO_Read_Pin(GPIO_Typedef *GPIOx, uint16_t GPIO_Pin){
 	}
 }
 
-void GPIO_Toggle_Pin(GPIO_Typedef *GPIOx, uint16_t GPIO_Pin){
+void GPIO_Toggle_Pin(volatile GPIO_Typedef *GPIOx, uint16_t GPIO_Pin){
 	for(uint8_t i = 0; i < 16; i++){
 		if(((1 << i) & GPIO_Pin)){
 			if((GPIOx->ODR & (uint32_t)(1 << i)) != 0){
