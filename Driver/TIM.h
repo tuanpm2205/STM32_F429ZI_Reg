@@ -29,9 +29,12 @@ typedef struct{
 }TIM1_Typedef;
 
 #define TIM1_ADDRESS_BASE				0x40010000UL
-#define TIM1										(volatile TIM1_Typedef *)TIM1_ADDRESS_BASE
+#define TIM1										((volatile TIM1_Typedef*)TIM1_ADDRESS_BASE)
 	
 
-void TIM1_Init();
+void TIM1_Init(void);
+
+void Delay_ms(uint32_t time);	//72MHz
+void Delay_us(uint32_t time);  //72MHz
 
 #endif
