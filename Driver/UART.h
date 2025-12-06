@@ -2,6 +2,8 @@
 #define __UART_H
 
 #include "TYPE.h"
+#include "GPIO.h"
+#include "ISER.h"
 
 typedef struct{
 	__REG SR;

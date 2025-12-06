@@ -1,5 +1,4 @@
 #include "UART.h"
-#include "GPIO.h"
 
 void UART1_Init_9600(void){
 	GPIO_Config(GPIOA, PIN_9, MODE_APP);
@@ -11,6 +10,9 @@ void UART1_Init_9600(void){
 	
 	UART1->CR1 |= (1 << 13);
 	UART1->CR1 |= (0b11 << 2);
+	
+	UART1->CR1 |= (1 << 5);
+	NVIC_Enable_UART1();
 }
 
 void UART1_SendChar(char c){
@@ -24,4 +26,9 @@ void UART1_SendString(const char* str){
 	}
 }
 
-void USART1_IRQHandler(void);
+void USART1_IRQHandler(void){
+	while(UART1->SR & (1 << 5)){
+		char c = (char)(UART1->DR);
+		UART1_SendChar(c);
+	}
+}
