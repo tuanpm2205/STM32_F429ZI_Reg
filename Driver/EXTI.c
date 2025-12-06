@@ -80,26 +80,26 @@ void EXTI_Config(uint16_t PIN, uint8_t PORTx, uint8_t Mode){
 			}
 			switch((1 << i)){
 				case PIN_0:
-					NVIC_ISER->ISER0 = (1 << 6);
+					NVIC_Enable_EXTI0();
 					break;
 				case PIN_1:
-					NVIC_ISER->ISER0 = (1 << 7);
+					NVIC_Enable_EXTI1();
 					break;
 				case PIN_2:
-					NVIC_ISER->ISER0 = (1 << 8);
+					NVIC_Enable_EXTI2();
 					break;
 				case PIN_3:
-					NVIC_ISER->ISER0 = (1 << 9);
+					NVIC_Enable_EXTI3();
 					break;
 				case PIN_4:
-					NVIC_ISER->ISER0 = (1 << 10);
+					NVIC_Enable_EXTI4();
 					break;
 				case PIN_5:
 				case PIN_6:
 				case PIN_7:
 				case PIN_8:
 				case PIN_9:
-					NVIC_ISER->ISER0 = (1 << 23);
+					NVIC_Enable_EXTI5_9();
 					break;
 				case PIN_10:
 				case PIN_11:
@@ -107,7 +107,7 @@ void EXTI_Config(uint16_t PIN, uint8_t PORTx, uint8_t Mode){
 				case PIN_13:
 				case PIN_14:
 				case PIN_15:
-					NVIC_ISER->ISER1 = (1 << 8);
+					NVIC_Enable_EXTI10_15();
 					break;
 			}
 		}

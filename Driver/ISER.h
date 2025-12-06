@@ -1,12 +1,5 @@
-/*
- * ISER.h
- *
- *  Created on: Oct 21, 2025
- *      Author: phamm
- */
-
-#ifndef ISER_H_
-#define ISER_H_
+#ifndef __ISER_H
+#define __ISER_H
 
 #include "TYPE.h"
 
@@ -23,5 +16,14 @@ typedef struct{
 
 
 #define NVIC_ISER			((volatile NVIC_ISER_Typedef*)0xE000E100UL)
+	
+void NVIC_Enable_UART1(void);
+void NVIC_Enable_EXTI0(void);
+void NVIC_Enable_EXTI1(void);
+void NVIC_Enable_EXTI2(void);
+void NVIC_Enable_EXTI3(void);
+void NVIC_Enable_EXTI4(void);
+void NVIC_Enable_EXTI5_9(void);
+void NVIC_Enable_EXTI10_15(void);
 
-#endif /* ISER_H_ */
+#endif
