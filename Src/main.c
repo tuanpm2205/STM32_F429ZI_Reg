@@ -4,12 +4,14 @@
 #include <EXTI.h>
 #include <TIM.h>
 #include <ADC.h>
+#include <UART.h>
 
 uint16_t result = 0;
 
 int main(){
 	RCC_Config_Default();
 	
+	RCC_Enable_GPIOA();
 	RCC_Enable_GPIOB();
 	RCC_Enable_GPIOC();
 	
@@ -21,6 +23,9 @@ int main(){
 	RCC_Enable_ADC1();
 	GPIO_Config(GPIOC, PIN_0, MODE_IAN);
 	ADC1_Channel0_Init();
+	
+	RCC_Enable_UART1();
+	UART1_Init_9600();
 	
 	GPIO_Config(GPIOB, PIN_14, MODE_OPP);
 	GPIO_Config(GPIOB, PIN_7, MODE_OPP);
@@ -35,7 +40,11 @@ int main(){
 		Delay_ms(1000);
 		*/
 		
-		//Test adc
+		/* Test adc
 		result = ADC1_Channel0_Read();
+		*/
+		
+		UART1_SendString("I am STM32F429ZI\n");
+		Delay_ms(1000);
 	}
 }
