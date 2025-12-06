@@ -7,6 +7,7 @@
 #include <UART.h>
 
 uint16_t result = 0;
+uint16_t duty_led = 0;
 
 int main(){
 	RCC_Config_Default();
@@ -18,7 +19,10 @@ int main(){
 	RCC_Enable_SYSCFG();
 	
 	RCC_Enable_TIM1();
+	RCC_Enable_TIM8();
 	TIM1_Init();
+	TIM8_Init_PWM_1KHz();
+	TIM8_Start_PWM();
 	
 	RCC_Enable_ADC1();
 	GPIO_Config(GPIOC, PIN_0, MODE_IAN);
@@ -40,9 +44,9 @@ int main(){
 		Delay_ms(1000);
 		*/
 		
-		/* Test adc
 		result = ADC1_Channel0_Read();
-		*/
+		duty_led = result*100/4095;
+		TIM8_Update_Duty(duty_led);
 		
 		/* Test TX function
 		UART1_SendString("I am STM32F429ZI\n");
