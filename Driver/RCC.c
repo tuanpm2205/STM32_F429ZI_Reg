@@ -1,5 +1,7 @@
 #include "RCC.h"
 
+
+//Clk = 72MHz, APB2 Clk = 36Mhz (Peripheral), APB2 Timer Clk = 72MHz
 void RCC_Config_Default(void){
 	RCC->CR |= (1 << 16);									//HSEON = 1
 	while((RCC->CR & (1 << 17)) == 0);		// Check bit HSERDY
@@ -25,6 +27,7 @@ void RCC_Config_Default(void){
 	RCC->CFGR |= (1 << 1);
 	while((RCC->CFGR & 0b1100) != 0b1000);
 }
+
 
 void RCC_Config_168MHZ(void){
 	RCC->CR |= (1 << 16);									//HSEON = 1
@@ -68,6 +71,12 @@ void RCC_Enable_SYSCFG(void){
 void RCC_Enable_TIM1(void){
 	RCC->APB2ENR |= (1 << 0);
 }
+void RCC_Enable_TIM8(void){
+	RCC->APB2ENR |= (1 << 1);
+}
 void RCC_Enable_ADC1(void){
 	RCC->APB2ENR |= (1 << 8);
+}
+void RCC_Enable_UART1(void){
+	RCC->APB2ENR |= (1 << 4);
 }
