@@ -44,7 +44,9 @@ int main(){
 		result = ADC1_Channel0_Read();
 		*/
 		
+		/* Test TX function
 		UART1_SendString("I am STM32F429ZI\n");
 		Delay_ms(1000);
+		*/
 	}
 }
