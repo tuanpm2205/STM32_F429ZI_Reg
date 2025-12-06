@@ -59,4 +59,6 @@ void RCC_Enable_GPIOF(void);
 void RCC_Enable_GPIOG(void);
 void RCC_Enable_GPIOH(void);
 void RCC_Enable_SYSCFG(void);
+void RCC_Enable_TIM1(void);
+void RCC_Enable_ADC1(void);
 #endif

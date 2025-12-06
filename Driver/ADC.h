@@ -32,6 +32,7 @@ typedef struct{
 #define ADC1_ADDRESS_BASE						0x40012000UL
 #define ADC1												((volatile ADC_Typedef*)(ADC1_ADDRESS_BASE))
 
-void ADC_Init(void);
+void ADC1_Channel0_Init(void);
+uint16_t ADC1_Channel0_Read(void);
 
 #endif

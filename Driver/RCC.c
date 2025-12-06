@@ -65,3 +65,9 @@ void RCC_Enable_GPIOC(void){
 void RCC_Enable_SYSCFG(void){
 	RCC->APB2ENR |= (1 << 14);
 }
+void RCC_Enable_TIM1(void){
+	RCC->APB2ENR |= (1 << 0);
+}
+void RCC_Enable_ADC1(void){
+	RCC->APB2ENR |= (1 << 8);
+}
