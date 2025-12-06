@@ -16,6 +16,9 @@ typedef struct{
 #define UART1_ADDRESS_BASE			0x40011000UL
 #define UART1										((volatile UART_Typedef*)(UART1_ADDRESS_BASE))
 	
-void UART1_Init();
+void UART1_Init_9600(void);
+void UART1_SendChar(char c);
+void UART1_SendString(const char* str);
+void USART1_IRQHandler(void);
 
 #endif
