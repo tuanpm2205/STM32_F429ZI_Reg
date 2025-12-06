@@ -2,6 +2,7 @@
 #define __TIM_H
 
 #include "TYPE.h"
+#include "GPIO.h"
 
 // Just develop for TIM1
 
@@ -31,10 +32,18 @@ typedef struct{
 #define TIM1_ADDRESS_BASE				0x40010000UL
 #define TIM1										((volatile TIM1_Typedef*)TIM1_ADDRESS_BASE)
 	
+#define TIM8_ADDRESS_BASE				0x40010400UL
+#define TIM8										((volatile TIM1_Typedef*)TIM8_ADDRESS_BASE)
+	
 
 void TIM1_Init(void);
 
-void Delay_ms(uint32_t time);	//72MHz
-void Delay_us(uint32_t time);  //72MHz
+void TIM8_Init_PWM_1KHz(void);
+void TIM8_Start_PWM(void);
+void TIM8_Stop_PWM(void);
+void TIM8_Update_Duty(uint8_t duty);
+
+void Delay_ms(uint16_t time);	//Clock 72MHz
+void Delay_us(uint16_t time); //Clock 72MHz
 
 #endif
