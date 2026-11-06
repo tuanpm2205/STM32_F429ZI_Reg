@@ -1,7 +1,6 @@
 #include "SPI.h"
 
 void SPI1_Init_Master(void){
-	GPIO_Config(SPI1_CSN_PORT, SPI1_CSN_PIN, MODE_OPP);
 	GPIO_Config(SPI1_SCK_PORT, SPI1_SCK_PIN, MODE_APP);
 	GPIO_Config(SPI1_MISO_PORT, SPI1_MISO_PIN, MODE_APP);
 	GPIO_Config(SPI1_MOSI_PORT, SPI1_MOSI_PIN, MODE_APP);
@@ -12,13 +11,12 @@ void SPI1_Init_Master(void){
 	SPI1->CR1 &= ~(0xFFFFFFFF);
 	//SPI1->CR1 |= (0x14C << 0);
 	SPI1-> CR1 |= (1 << 2); //Master
-	SPI1-> CR1 |= (0b011 << 3); // APB2 = 36Mhz -> /4 = 8Mhz
+	SPI1-> CR1 |= (0b001 << 3); // APB2 = 36Mhz -> /4 = 8Mhz
+	//SPI1-> CR1 |= (0b011 << 3); // APB2 = 36Mhz -> /16 = 2Mhz
 	SPI1-> CR1 |= (1 << 9); //CSN software
 	SPI1-> CR1 |= (1 << 8); // SSI
 	SPI1-> CR1 |= (1 << 6); // Enable
 	
-	//NVIC_Enable_SPI1();
-	SPI1_CS_SET
 }
 
 void SPI1_SendByte(uint8_t *data, uint8_t* buffer){
@@ -31,20 +29,16 @@ void SPI1_SendByte(uint8_t *data, uint8_t* buffer){
 
 void SPI1_Transmit(uint8_t *data, uint16_t Size){
 	uint8_t dummy;
-	SPI1_CS_RESET
 	while(Size--){
 		SPI1_SendByte(data++, &dummy);
 	}
-	SPI1_CS_SET
 }
 
 void SPI1_Receive(uint8_t *data, uint16_t Size){
 	uint8_t  dummy = 0xFF;
-	SPI1_CS_RESET
 	while(Size--){
 		SPI1_SendByte(&dummy, data++);
 	}
-	SPI1_CS_SET
 }
 
 

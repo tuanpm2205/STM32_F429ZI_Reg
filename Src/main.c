@@ -6,9 +6,24 @@
 #include <ADC.h>
 #include <UART.h>
 #include <SPI.h>
+#include <nrf24l01.h>
+#include <string.h>
+
 
 uint16_t result = 0;
 uint16_t duty_led = 0;
+uint8_t RxData[32];
+volatile uint8_t nrf_irq = 0;
+uint8_t data_control[5];
+
+
+
+void EXTI9_5_IRQHandler(){
+	if(EXTI->PR & (1 << 7)){
+		nrf_irq = 1;
+		EXTI->PR = (1 << 7);
+	}
+}
 
 int main(){
 	RCC_Config_Default();
@@ -42,12 +57,22 @@ int main(){
 	//EXTI13_Init();
 	
 	EXTI_Config(PIN_13, PORTC, MODE_RASING);
+	EXTI_Config(PIN_7, PORTC, MODE_FALLING);
+	Delay_ms(1000);
+nrf_rx_init();
 	while(1){
-		uint8_t data[5] = {0x55, 0xAA, 0x00, 0xFF, 0x69};
-		SPI1_Transmit(data, 5);
+		for(uint32_t i =0; i < 1000000; i++);
+		if (nrf_irq == 1){
+			nrf_irq = 0;
+			uint8_t status = nrf_get_status();
+			if(status & (1 << 6)){
+					nrf_read_payload(data_control, 5);
+					for(uint8_t i = 0; i < 5; i++){
+						UART1_SendChar(data_control[i]);
+					}
+			}
+		}
 		GPIO_Toggle_Pin(GPIOB, PIN_14);
-		Delay_ms(1000);
-		
 		/* Test Timer
 		GPIO_Toggle_Pin(GPIOB, PIN_7);
 		Delay_ms(1000);
