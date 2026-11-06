@@ -12,7 +12,7 @@ void SPI1_Init_Master(void){
 	SPI1->CR1 &= ~(0xFFFFFFFF);
 	//SPI1->CR1 |= (0x14C << 0);
 	SPI1-> CR1 |= (1 << 2); //Master
-	SPI1-> CR1 |= (0b001 << 3); // APB2 = 36Mhz -> /4 = 8Mhz
+	SPI1-> CR1 |= (0b011 << 3); // APB2 = 36Mhz -> /4 = 8Mhz
 	SPI1-> CR1 |= (1 << 9); //CSN software
 	SPI1-> CR1 |= (1 << 8); // SSI
 	SPI1-> CR1 |= (1 << 6); // Enable
@@ -21,9 +21,15 @@ void SPI1_Init_Master(void){
 	SPI1_CS_SET
 }
 
-void SPI1_SendByte(uint8_t data){
+uint8_t SPI1_SendByte(uint8_t data){
+	SPI1_CS_RESET
 	while(!(SPI1->SR & (1 << 1)));
 	SPI1->DR = data;
+	while(!(SPI1->SR & (1 << 0)));
+	uint32_t buffer = SPI1->DR;
+	while((SPI1->SR & (1 << 7)));
+	SPI1_CS_SET
+	return (uint8_t)buffer;
 }
 
 

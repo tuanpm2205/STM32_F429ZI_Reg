@@ -32,9 +32,12 @@ typedef struct{
 
 #define SPI1_ADDRESS_BASE 				0x40013000UL
 #define SPI1											((volatile SPI_Typedef*)(SPI1_ADDRESS_BASE))
+	
+#define SPI1_CS_RESET GPIO_Write_Pin(GPIOA, PIN_8, 0);
+#define SPI1_CS_SET GPIO_Write_Pin(GPIOA, PIN_8, 1);
 
 void SPI1_Init_Master(void);
-void SPI1_SendByte(uint8_t data);
+uint8_t SPI1_SendByte(uint8_t data);
 void SPI1_Transmit(uint8_t *data, uint16_t Size);
 void SPI1_Receive(uint8_t *data, uint16_t Size);
 

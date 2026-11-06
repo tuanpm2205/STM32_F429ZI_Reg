@@ -5,6 +5,7 @@
 #include <TIM.h>
 #include <ADC.h>
 #include <UART.h>
+#include <SPI.h>
 
 uint16_t result = 0;
 uint16_t duty_led = 0;
@@ -20,13 +21,17 @@ int main(){
 	
 	RCC_Enable_TIM1();
 	RCC_Enable_TIM8();
+	RCC_Enable_SPI1();
+	
+	 
 	TIM1_Init();
 	TIM8_Init_PWM_1KHz();
 	TIM8_Start_PWM();
+	SPI1_Init_Master();
 	
-	RCC_Enable_ADC1();
-	GPIO_Config(GPIOC, PIN_0, MODE_IAN);
-	ADC1_Channel0_Init();
+	//RCC_Enable_ADC1();
+	//GPIO_Config(GPIOC, PIN_0, MODE_IAN);
+	//ADC1_Channel0_Init();
 	
 	RCC_Enable_UART1();
 	UART1_Init_9600();
@@ -37,20 +42,38 @@ int main(){
 	//EXTI13_Init();
 	
 	EXTI_Config(PIN_13, PORTC, MODE_RASING);
-	
 	while(1){
+		SPI1_SendByte(0x69);
+		GPIO_Toggle_Pin(GPIOB, PIN_14);
+		Delay_ms(1000);
+		
 		/* Test Timer
 		GPIO_Toggle_Pin(GPIOB, PIN_7);
 		Delay_ms(1000);
 		*/
 		
+		/* Control led with PWM TIM8
 		result = ADC1_Channel0_Read();
 		duty_led = result*100/4095;
 		TIM8_Update_Duty(duty_led);
+		*/
 		
 		/* Test TX function
 		UART1_SendString("I am STM32F429ZI\n");
 		Delay_ms(1000);
 		*/
+		
+		/* Test PWM
+		for(int8_t i = 0; i <= 100; i++){
+			TIM8_Update_Duty(i);
+			Delay_ms(20);
+		}
+		for(int8_t i = 100; i >= 0; i--){
+			TIM8_Update_Duty(i);
+			Delay_ms(20);
+		}
+		*/
+		
+		
 	}
 }
