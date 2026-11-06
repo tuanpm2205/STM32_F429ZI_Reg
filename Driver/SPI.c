@@ -21,15 +21,30 @@ void SPI1_Init_Master(void){
 	SPI1_CS_SET
 }
 
-uint8_t SPI1_SendByte(uint8_t data){
-	SPI1_CS_RESET
+void SPI1_SendByte(uint8_t *data, uint8_t* buffer){
 	while(!(SPI1->SR & (1 << 1)));
-	SPI1->DR = data;
+	SPI1->DR = *data;
 	while(!(SPI1->SR & (1 << 0)));
-	uint32_t buffer = SPI1->DR;
+	*buffer = (uint8_t)SPI1->DR;
 	while((SPI1->SR & (1 << 7)));
+}
+
+void SPI1_Transmit(uint8_t *data, uint16_t Size){
+	uint8_t dummy;
+	SPI1_CS_RESET
+	while(Size--){
+		SPI1_SendByte(data++, &dummy);
+	}
 	SPI1_CS_SET
-	return (uint8_t)buffer;
+}
+
+void SPI1_Receive(uint8_t *data, uint16_t Size){
+	uint8_t  dummy = 0xFF;
+	SPI1_CS_RESET
+	while(Size--){
+		SPI1_SendByte(&dummy, data++);
+	}
+	SPI1_CS_SET
 }
 
 

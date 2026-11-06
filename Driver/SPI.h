@@ -37,7 +37,7 @@ typedef struct{
 #define SPI1_CS_SET GPIO_Write_Pin(GPIOA, PIN_8, 1);
 
 void SPI1_Init_Master(void);
-uint8_t SPI1_SendByte(uint8_t data);
+void SPI1_SendByte(uint8_t *data, uint8_t* buffer);
 void SPI1_Transmit(uint8_t *data, uint16_t Size);
 void SPI1_Receive(uint8_t *data, uint16_t Size);
 

@@ -43,7 +43,8 @@ int main(){
 	
 	EXTI_Config(PIN_13, PORTC, MODE_RASING);
 	while(1){
-		SPI1_SendByte(0x69);
+		uint8_t data[5] = {0x55, 0xAA, 0x00, 0xFF, 0x69};
+		SPI1_Transmit(data, 5);
 		GPIO_Toggle_Pin(GPIOB, PIN_14);
 		Delay_ms(1000);
 		
