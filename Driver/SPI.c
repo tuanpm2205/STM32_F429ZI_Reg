@@ -18,6 +18,7 @@ void SPI1_Init_Master(void){
 	SPI1-> CR1 |= (1 << 6); // Enable
 	
 	//NVIC_Enable_SPI1();
+	SPI1_CS_SET
 }
 
 void SPI1_SendByte(uint8_t data){
@@ -25,23 +26,4 @@ void SPI1_SendByte(uint8_t data){
 	SPI1->DR = data;
 }
 
-void SPI1_Transmit(uint8_t *data, uint16_t Size){
-	uint8_t dummy = 0xFF;
-	while(Size--){
-		SPI1_SendByte(*data);
-		data++;
-		while(!(SPI1->SR & (1 << 0))); // RXNE
-		dummy = SPI1->DR;
-	}
-	while(SPI1->SR & (1 << 7));
-}
 
-void SPI1_Receive(uint8_t *data, uint16_t Size){
-	uint8_t dummy = 0;
-	while(Size--){
-		SPI1_SendByte(dummy);
-		while(!(SPI1->SR & (1 << 0))); // RXNE
-		*data++ = SPI1->DR;
-	}
-	while(SPI1->SR & (1 << 7));
-}
